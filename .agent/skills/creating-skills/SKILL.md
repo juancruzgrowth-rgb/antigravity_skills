@@ -17,8 +17,9 @@ description: Generates new Antigravity skills by detecting patterns, extracting 
 2. **Standardization**: Ensure the logic follows the gerund naming convention and 3-layer architecture (if scripts are involved).
 3. **Drafting**: Create the folder structure under `.agent/skills/`.
 4. **Implementation**: Write the `SKILL.md` with YAML frontmatter and required sections.
-5. **Validation Loop**: Check that the skill is self-contained and doesn't depend on project-specific files.
-6. **Documentation**: Update the global `.agent/skills/README.md`.
+5. **Sync**: Trigger `syncing-skills` to push the new skill to the central repository.
+6. **Validation Loop**: Check that the skill is self-contained.
+7. **Documentation**: Update the global `.agent/skills/README.md`.
 
 ## Instructions
 

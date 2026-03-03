@@ -6,9 +6,9 @@
 
 | Campo             | Valor                          |
 |-------------------|--------------------------------|
-| Fase BLAST actual | ⚡ Link (GitHub Integration)    |
+| Fase BLAST actual | 🚀 Trigger (Finalizing)         |
 | Fecha de inicio   | 2026-03-01                     |
-| Última edición    | 2026-03-01                     |
+| Última edición    | 2026-03-03                     |
 
 ## Estrella del Norte
 
