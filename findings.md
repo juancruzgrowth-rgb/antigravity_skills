@@ -17,3 +17,4 @@ El sistema nativo de Antigravity reconoce skills en `.agent/skills/` con la sigu
 
 - Las skills son archivos estáticos; no hay un mecanismo de versionado integrado.
 - La copia entre proyectos es manual (copiar carpeta `.agent/skills/`).
+- **Autenticación Git**: El agente no tiene acceso directo a las credenciales de GitHub del usuario. El primer push debe ser realizado manualmente por el usuario para activar el gestor de credenciales.

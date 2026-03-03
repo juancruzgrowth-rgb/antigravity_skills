@@ -31,6 +31,7 @@ Use the `creating-skills` skill itself to expand this library.
 - [deploying-web-app](./deploying-web-app/SKILL.md): Deployment SOPs.
 - [managing-leads](./managing-leads/SKILL.md): CRM and lead qualification.
 - [deploying-automation](./deploying-automation/SKILL.md): Cron & Webhook management.
+- [ui-ux-pro-max-skill](./ui-ux-pro-max-skill/SKILL.md): Advanced design intelligence toolkit.
 
 ## GitHub Sync & Import
 

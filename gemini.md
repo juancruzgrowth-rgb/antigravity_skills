@@ -6,7 +6,7 @@
 
 | Campo             | Valor                          |
 |-------------------|--------------------------------|
-| Fase BLAST actual | 🚀 Trigger (Finalizing)         |
+| Fase BLAST actual | 🚀 Trigger (Completado)         |
 | Fecha de inicio   | 2026-03-01                     |
 | Última edición    | 2026-03-03                     |
 
