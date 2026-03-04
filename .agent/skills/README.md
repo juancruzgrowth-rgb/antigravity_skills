@@ -32,6 +32,7 @@ Use the `creating-skills` skill itself to expand this library.
 - [managing-leads](./managing-leads/SKILL.md): CRM and lead qualification.
 - [deploying-automation](./deploying-automation/SKILL.md): Cron & Webhook management.
 - [ui-ux-pro-max-skill](./ui-ux-pro-max-skill/SKILL.md): Advanced design intelligence toolkit.
+- [publishing-to-github](./publishing-to-github/SKILL.md): Standardized GitHub commits and push automation.
 
 ## GitHub Sync & Import
 
