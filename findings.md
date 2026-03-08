@@ -18,3 +18,8 @@ El sistema nativo de Antigravity reconoce skills en `.agent/skills/` con la sigu
 - Las skills son archivos estáticos; no hay un mecanismo de versionado integrado.
 - La copia entre proyectos es manual (copiar carpeta `.agent/skills/`).
 - **Autenticación Git**: El agente no tiene acceso directo a las credenciales de GitHub del usuario. El primer push debe ser realizado manualmente por el usuario para activar el gestor de credenciales.
+
+## Investigaciones - Documenting Projects
+- NotebookLM no expone API de escritura. La integración se debe hacer mediante la exportación de un archivo Markdown local (`.md`) bien formateado que el usuario subirá de forma manual a su cuaderno de "Recién".
+- La fuente de verdad para documentar un proyecto serán los archivos `gemini.md`, `task_plan.md`, `findings.md` y la carpeta `architecture/`.
+- El enriquecimiento de contexto se pasará por una API (como Perplexity u OpenAI) antes de ir a Notion, pero garantizando un tono técnico/documental, sin estilo promocional, truncando cualquier bloque de código mayor a 500 líneas.

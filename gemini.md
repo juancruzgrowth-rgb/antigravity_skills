@@ -12,9 +12,23 @@
 
 ## Estrella del Norte
 
-> Pendiente de confirmación del usuario.
+> Crear un asistente de documentación detallada (`documenting-projects`) que capture la historia de cada proyecto Antigravity, genere una base de datos estructurada en Notion, y prepare la información enriquecida (vía APIs externas) para ser consumida manualmente por NotebookLM y convertida en contenido.
 
 ## Esquema de Datos
+
+### Esquema de Datos - documenting-projects
+
+**Carga útil para Notion (Base de Datos):**
+* `project_id`: (Title) Nombre único del proyecto
+* `date`: (Date) Fecha de recolección
+* `tools_used`: (Multi-select) Ej: [Antigravity, n8n, Supabase]
+* `complexity`: (Select) Ej: Alta, Media, Baja
+* `summary`: (Text) Resumen rápido de la automatización
+* `enriched_context`: (Text) Insights de tendencias/API
+* `page_content`: (Page blocks) Todo el detalle paso a paso estructurado
+
+**Carga útil para NotebookLM:**
+* Exportación final en `.md` o texto enriquecido combinando toda la data y contexto, listo para subida manual.
 
 ### Estructura de una Skill
 
@@ -59,7 +73,9 @@ description: <tercera persona, triggers claros, cuándo usarse>
 4. Declarar cada acción antes de ejecutarla.
 5. Cuando se detecte lógica reutilizable: detener → proponer → crear skill → continuar.
 6. Cada skill debe ser autosuficiente y copiable a cualquier proyecto.
-
+7. **Reglas para `documenting-projects`**:
+   - Nunca documentar código crudo que exceda las 500 líneas (resumir o truncar).
+   - El tono del enriquecimiento debe ser explicativo, técnico y legible (tipo documentación para desarrolladores), sin lenguaje introductorio de redes sociales.
 ## Invariantes Arquitectónicas
 
 - La ruta canónica de skills es `.agent/skills/`.
@@ -81,3 +97,4 @@ description: <tercera persona, triggers claros, cuándo usarse>
 | deploying-web-app        | ⬜ Pendiente |
 | managing-leads           | ⬜ Pendiente |
 | deploying-automation     | ⬜ Pendiente |
+| documenting-projects     | 🔄 En Progreso |

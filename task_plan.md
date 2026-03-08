@@ -1,40 +1,27 @@
-# Task Plan — Antigravity Skills Repository
+## Fase 1: Blueprint (Completado)
+- [x] Preguntas de descubrimiento respondidas
+- [x] Esquema de datos definido en `gemini.md`
+- [x] Investigación inicial registrada en `findings.md`
 
-## Fase 0: Inicialización
-- [x] Crear `gemini.md` (Constitución)
-- [x] Crear `task_plan.md` (este archivo)
-- [x] Crear `findings.md`
-- [x] Crear `progress.md`
-- [ ] Completar preguntas de descubrimiento BLAST
-- [ ] Confirmar esquema de datos con el usuario
+## Fase 2: Link (Completado)
+- [x] Verificar conexión a Notion API (crear una DB de prueba o usar existente mediante MCP/token)
+- [x] Definir y probar la API de enriquecimiento (Perplexity API)
 
-## Fase 1: Blueprint (B)
-- [ ] Respuestas del usuario a las 5 preguntas de descubrimiento
-- [ ] Definir esquema de datos final en `gemini.md`
-- [ ] Investigar repositorios y recursos útiles
-- [ ] Crear plan de implementación aprobado
+## Fase 3: Architect (Completado)
+- [x] Construir SOP en `architecture/documenting-projects.md`
+  - Definir cómo recolectar de `gemini.md`, `task_plan.md`, `findings.md` y `architecture/` del proyecto objetivo
+  - Definir lógica para truncar/ignorar código > 500 líneas
+  - Definir prompt de enriquecimiento para que el tono sea documental técnico
+- [x] Escribir herramientas iterativas en `tools/`
+  1. `collect_project_data.py`: Lee archivos locales y sanitiza
+  2. `enrich_documentation.py`: Llama a API para contexto adicional
+  3. `export_to_notion.py`: Crea/Actualiza DB y bloques de la página en Notion
+  4. `export_for_notebooklm.py`: Genera el `.md` final unificado
 
-## Fase 2: Link (L)
-- N/A (no hay APIs externas en este proyecto)
+## Fase 4: Stylize (Completado)
+- [x] Dar formato Markdown rico a los bloques de Notion (Callouts para summary, Code blocks para scripts)
+- [x] Configurar el archivo plano `.md` de salida para que sea 100% digerible por NotebookLM.
 
-## Fase 3: Architect (A)
-- [ ] Crear `.agent/skills/` estructura base
-- [ ] Crear skill fundacional: `creating-skills/SKILL.md`
-- [ ] Crear skills base (estructura solamente):
-  - [ ] `managing-notion/`
-  - [ ] `managing-google-sheets/`
-  - [ ] `connecting-n8n/`
-  - [ ] `generating-pdf/`
-  - [ ] `creating-quiz-system/`
-  - [ ] `deploying-web-app/`
-  - [ ] `managing-leads/`
-  - [ ] `deploying-automation/`
-- [ ] Crear `.agent/skills/README.md`
-
-## Fase 4: Stylize (S)
-- [ ] Revisar formato y consistencia de todas las skills
-- [ ] Presentar resultado al usuario
-
-## Fase 5: Trigger (T)
-- [ ] Documentación final en `gemini.md`
-- [ ] Instrucciones de copia a otros proyectos
+## Fase 5: Trigger (Completado)
+- [x] Crear la habilidad `.agent/skills/documenting-projects/SKILL.md`
+- [x] Definir las instrucciones de invocación y ejemplos.
