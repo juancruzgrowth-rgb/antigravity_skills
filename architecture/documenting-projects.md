@@ -1,37 +1,60 @@
 # SOP: Documenting Projects
 
 ## 1. Identidad y Propósito
-Este documento define la arquitectura para la habilidad `documenting-projects`. Su objetivo es recopilar la historia completa de un proyecto (planificación, descubrimientos, arquitectura y código), enriquecerla usando Perplexity API y publicarla de forma estructurada en una base de datos de Notion y localmente para NotebookLM.
+Este documento define la arquitectura para la habilidad `documenting-projects`. Su objetivo es recopilar la historia completa de un proyecto (planificación, descubrimientos, arquitectura y código), enriquecerla usando el agente Antigravity como "Director de Contenido" y publicarla de forma estructurada en Notion y NotebookLM.
 
 ## 2. Entradas (Inputs)
-- Archivos locales del proyecto Antigravity destino donde se ejecutan los scripts:
+- Archivos locales del proyecto Antigravity:
   - `gemini.md` (Constitución)
   - `task_plan.md` (Checklists)
   - `findings.md` (Investigación y Problemas)
   - `progress.md` (Log de eventos)
   - `architecture/` (SOPs por capa)
   - `tools/` (Scripts atómicos)
-- `NOTION_API_KEY`, `NOTION_DATABASE_ID` y `PERPLEXITY_API_KEY` en `.env`.
+- `NOTION_API_KEY` y `NOTION_DATABASE_ID` en `.env`.
 
 ## 3. Lógica y Procesamiento
-1. **Recolección (`collect_project_data.py`)**:
-   - Se leen todos los `.md` en la raíz.
-   - Se leen todos los `.py` en `tools/`.
-   - **Restricción de Tamaño**: Si un archivo en `tools/` excede las 500 líneas, se truncará agregando la nota: `// Código truncado: > 500 líneas. Referirse al repositorio local.`
-   
-2. **Enriquecimiento (`enrich_documentation.py`)**:
-   - Envía el *dump* de código y *markdown* a la API de Perplexity (`llama-3-sonar-small-32k-online` o equivalente).
-   - **Tono y Prompt**: Tono *técnico*, orientado a "developer documentation". Explicar la elección de tecnologías, resumir el workflow de la automatización construida y proveer insights de tendencias útiles y estables en el mercado (por qué se hizo así).
-   - Prohibido utilizar lenguaje de redes sociales como "¡Hola chicos!" o "Bienvenidos a mi canal".
 
-3. **Exportación a Notion (`export_to_notion.py`)**:
-   - Genera una página dentro de la Base de Datos Notion.
-   - Propiedades base: `Title` (Nombre proyecto inferido), `Date` (Hoy).
-   - Contenido de la página: Segmentado en bloques de Título e Texto Enriquecido.
+### 3.1 Recolección (`collect_project_data.py`)
+- Lee todos los `.md` en la raíz y todos los scripts en `tools/`.
+- **Restricción de Tamaño**: Si un archivo excede 500 líneas, se trunca.
+- Output: `.tmp/collected_project_data.json`.
 
-4. **Exportación a NotebookLM (`export_for_notebooklm.py`)**:
-   - Genera el reporte combinado como `<project_name>_NotebookLM_export.md` para subida manual.
+### 3.2 Enriquecimiento (Agente Antigravity)
+El agente actúa como "Director de Contenido":
+1. Lee los datos recolectados y los archivos del proyecto.
+2. Reconstruye la historia como un **tutorial paso a paso para alguien sin conocimientos técnicos**.
+3. Genera un JSON con `steps` tipados:
+   - `heading_1/2/3`: Títulos de secciones
+   - `paragraph/text`: Explicaciones en lenguaje sencillo
+   - `code`: Bloques de código con caption explicativa
+   - `callout`: Tips (💡), advertencias (⚠️), ejemplos destacados
+   - `numbered_list`: Listas de pasos
+   - `bulleted_list`: Listas de herramientas
+   - `toggle`: Contenido expandible (lecciones aprendidas)
+   - `quote`: Reflexiones clave
+   - `diagram`: Flujos visuales
+   - `divider`: Separadores
+   - `table_of_contents`: Índice automático
+4. **Tono**: Explicativo, como un tutorial para YouTube. Sin jerga técnica innecesaria.
+5. Output: `.tmp/enriched_documentation.json`.
 
-## 4. Casos Borde y Restricciones (Auto-reparación)
-- **Error de Tokens Perplexity**: Si todo el contexto supera 32k tokens, el recolector deberá limitarse a leer solo `gemini.md` y `architecture/`, ignorando `tools/` para el enriquecimiento.
-- **Formateo Notion**: La API de Notion puede rechazar bloques muy extensos (límite de 2000 chars por bloque de texto). El script `export_to_notion.py` debe dividir textos largos en sub-bloques de 2000 caracteres como máximo.
+### 3.3 Exportación a Notion (`export_to_notion.js`)
+- Lee el JSON enriquecido con `steps`.
+- Crea una página en la Base de Datos Notion con:
+  - Propiedades: Project Name, Status, Date, Stack, Complexity, AI Insights.
+  - Contenido rico: Table of Contents + Summary Callout + Todos los Steps + Footer.
+- **Límites**: Auto-split a 1900 chars/bloque. Paginación a 100 bloques/request.
+
+### 3.4 Exportación a NotebookLM
+- `notebooklm source add` sube el reporte `.md` al cuaderno configurado.
+- Requiere autenticación previa (`notebooklm login`).
+
+## 4. Cuándo Documentar
+**Al finalizar el proyecto** (Fase Trigger del B.L.A.S.T.), no de forma incremental. Esto asegura que la documentación está completa y no contiene pasos que luego cambiaron.
+
+## 5. Casos Borde y Restricciones
+- **Notion 2000 chars**: El script divide automáticamente textos largos.
+- **Notion 100 blocks**: Se envían en lotes con `appendChildren`.
+- **NotebookLM sesión expirada**: Re-autenticar con `notebooklm login`.
+- **Tokens Notion `ntn_` vs `secret_`**: Ambos formatos son válidos. Lo importante es dar permiso a la integración en la página.
