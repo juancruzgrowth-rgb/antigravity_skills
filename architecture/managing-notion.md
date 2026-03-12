@@ -90,6 +90,7 @@ Al traducir un `rich_text` array:
 - **100 bloques por request**: Paginar con `API-patch-block-children`
 - **Bloques con hijos**: Crear padre primero, luego añadir hijos por ID
 - **Images/files hosted en Notion**: Las URLs de tipo `file` de Notion expiran. Al traducir, convertir a tipo `external` con la URL temporal. La imagen funcionará hasta que expire (~1h). Alternativa: descargar y re-subir manualmente.
+- **link_preview blocks**: La API de Notion no permite crear bloques de tipo `link_preview`. Al clonar una página, se deben convertir a `bookmark`.
 - **child_page encontrado**: No traducir automáticamente. Informar al usuario y preguntar si desea traducir esa sub-página también
 
 ## 6. Nota de Auto-reparación
