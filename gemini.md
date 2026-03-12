@@ -89,7 +89,7 @@ description: <tercera persona, triggers claros, cuándo usarse>
 | Skill                    | Estado      |
 |--------------------------|-------------|
 | creating-skills          | ⬜ Pendiente |
-| managing-notion          | ⬜ Pendiente |
+| managing-notion          | 🔄 En Progreso |
 | managing-google-sheets   | ⬜ Pendiente |
 | connecting-n8n           | ⬜ Pendiente |
 | generating-pdf           | ⬜ Pendiente |
